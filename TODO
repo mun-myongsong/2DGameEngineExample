@@ -1,0 +1,14 @@
+タイルの当たり判定の実装 - DONE
+└バグ修正 - DONE
+敵の生成 - WIP
+└複数をランダムの位置に生成 - WIP
+└キャラクタ同士の当たり判定
+└敵の行動AI
+UIの実装
+┗ステータスの表示
+┗ボタンの実装
+┗セリフの表示
+
+使用素材
+https://absuredmrsteel.itch.io/16x16-home-interior-pixel-art
+https://evanwritesgames.itch.io/free-retro-cybercity-cyberpunk-2077edgerunners-inspired-character-pack
