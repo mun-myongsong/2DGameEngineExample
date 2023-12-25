@@ -3,19 +3,26 @@ package entity;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import core.Position;
 import core.Size;
 import core.Vector2D;
+import display.DebugRenderer;
 import entity.creature.Direction;
 import gfx.Animation;
 import gfx.SpriteSheet;
 import input.Keyboard;
 import map.GameMap;
+import state.PlayState;
 import state.State;
 
 public abstract class Entity {
+    private static final int DISTANCE_TO_ENTITY = 100;
+
+    protected GameMap gameMap;
     protected Position position;
     protected Size size;
     protected Vector2D vector;
@@ -26,7 +33,8 @@ public abstract class Entity {
     protected Rectangle collisionBox;
     protected double walkSpeed;
 
-    public Entity(Keyboard keyboard, Position position, Size size, String fileName, int tileWidth, int tileHeight) {
+    public Entity(GameMap gameMap, Keyboard keyboard, Position position, Size size, String fileName, int tileWidth, int tileHeight) {
+        this.gameMap = gameMap;
         this.position = position;
         this.size = size;
         this.keyboard = keyboard;
@@ -35,7 +43,8 @@ public abstract class Entity {
         registerAnimations(spriteSheet);
         currentAnimation = animations.get(Direction.DOWN);
         direction = Direction.STOP;
-        collisionBox = new Rectangle((int)position.getX(), (int)position.getY(), size.getWidth(), size.getHeight());
+        collisionBox = new Rectangle((int)position.getX(), (int)position.getY(),
+                size.getWidth() * gameMap.getScale(), size.getHeight() * gameMap.getScale());
         walkSpeed = 3;
     }
 
@@ -142,10 +151,29 @@ public abstract class Entity {
             vector.setVector(0, 0);
             break;
         }
-        if (!map.isWalkable(this)) {
+        if (!map.isWalkable(this) || !isWalkable(state)) {
             vector.setVector(0, 0);
         }
         position.add(vector);
+    }
+
+    private boolean isWalkable(State state) {
+        if (state instanceof PlayState playState) {
+            List<Entity> filterList = playState.getEntities().stream()
+                .filter(entity -> Math.abs(getX() - entity.getX()) < DISTANCE_TO_ENTITY && Math.abs(getY() - entity.getY()) < DISTANCE_TO_ENTITY)
+                .collect(Collectors.toList());
+            for (int i = 0; i < filterList.size(); i++) {
+                if (isCollision(filterList.get(i))) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    private boolean isCollision(Entity entity) {
+        DebugRenderer.messageMap.put("COL", String.format("me: %s, you: %s", collisionBox, entity.getCollisionBox()));
+        return entity.getCollisionBox().intersects(collisionBox);
     }
 
     public boolean isWalkable() {

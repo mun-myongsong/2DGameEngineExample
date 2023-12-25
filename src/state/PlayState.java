@@ -19,6 +19,7 @@ public class PlayState extends State {
     public PlayState(Game game) {
         super(game);
         player = new Player(
+            gameMap,
             "Tester",
             keyboard,
             new Position(5 * gameMap.getTileSize().getWidth() * gameMap.getScale(), 3 * gameMap.getTileSize().getHeight() * gameMap.getScale()),
@@ -30,12 +31,12 @@ public class PlayState extends State {
         gameCamera.focusOn(player);
     }
 
-    // TODO
     private void generateEntity(int num) {
         entities = new ArrayList<>();
         for (int i = 0; i < num; i++) {
             entities.add(
                 new Enemy(
+                    gameMap,
                     "Enemy" + i,
                     keyboard,
                     new Position(random.nextInt(gameMap.getHeight()) * gameMap.getTileSize().getWidth() * gameMap.getScale(), random.nextInt(gameMap.getWidth()) * gameMap.getTileSize().getHeight() * gameMap.getScale()),
