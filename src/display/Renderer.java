@@ -47,6 +47,15 @@ public class Renderer {
             GameCamera camera = state.getGameCamera();
             Position cp = camera.getPosition();
             Player player = playState.getPlayer();
+            playState.getEntities().stream().forEach(entity -> {
+                g.drawImage(
+                    entity.getCurrentImage(),
+                    (int) entity.getX() - (int) cp.getX(),
+                    (int) entity.getY() - (int) cp.getY(),
+                    gameMap.getTileSize().getWidth() * gameMap.getScale(),
+                    gameMap.getTileSize().getHeight() * gameMap.getScale(),
+                    null);
+            });
             g.drawImage(
                 player.getCurrentImage(),
                 (int) player.getX() - (int) cp.getX(),

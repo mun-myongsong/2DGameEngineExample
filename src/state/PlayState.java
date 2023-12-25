@@ -7,12 +7,14 @@ import java.util.Random;
 import core.Position;
 import core.Size;
 import entity.Entity;
+import entity.creature.Enemy;
 import entity.creature.Player;
 import game.Game;
 
 public class PlayState extends State {
     private Player player;
     private List<Entity> entities;
+    private Random random;
 
     public PlayState(Game game) {
         super(game);
@@ -23,6 +25,7 @@ public class PlayState extends State {
             new Size(gameMap.getTileSize().getWidth(), gameMap.getTileSize().getHeight()),
             "/character/cyber/judyscuba.png",
             32, 32);    //TODO キャラクタのみタイルサイズが32の為
+        random = new Random();
         generateEntity(10);
         gameCamera.focusOn(player);
     }
@@ -31,7 +34,21 @@ public class PlayState extends State {
     private void generateEntity(int num) {
         entities = new ArrayList<>();
         for (int i = 0; i < num; i++) {
+            entities.add(
+                new Enemy(
+                    "Enemy" + i,
+                    keyboard,
+                    new Position(random.nextInt(gameMap.getHeight()) * gameMap.getTileSize().getWidth() * gameMap.getScale(), random.nextInt(gameMap.getWidth()) * gameMap.getTileSize().getHeight() * gameMap.getScale()),
+                    new Size(gameMap.getTileSize().getWidth(), gameMap.getTileSize().getHeight()),
+                    "/character/cyber/davidmartinez.png",
+                    32, 32    //TODO キャラクタのみタイルサイズが32の為
+                )
+            );
         }
+    }
+
+    public List<Entity> getEntities() {
+        return entities;
     }
 
     public Player getPlayer() {

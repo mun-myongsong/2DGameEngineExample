@@ -23,13 +23,18 @@ public class DebugRenderer {
     private void renderDebugCollisionBox(Graphics2D g, State state) {
         g.setColor(Color.RED);
         g.setStroke(new BasicStroke(2));
-        if (state instanceof PlayState pState) {
+        if (state instanceof PlayState playState) {
             Position cp = state.getGameCamera().getPosition();
-            Player p = pState.getPlayer();
+            Player p = playState.getPlayer();
             int scale = state.getGameMap().getScale();
+            playState.getEntities().stream().forEach(entity -> {
+                g.drawRect(
+                    (int)(entity.getCollisionBox().getX() - cp.getX()), (int)(entity.getCollisionBox().getY() - cp.getY()),
+                    (int)entity.getCollisionBox().getWidth() * scale, (int)entity.getCollisionBox().getHeight() * scale);
+            });
             g.drawRect(
-                (int) (p.getCollisionBox().getX() - cp.getX()), (int) (p.getCollisionBox().getY() - cp.getY()),
-                (int) p.getCollisionBox().getWidth() * scale, (int) p.getCollisionBox().getHeight() * scale);
+                (int)(p.getCollisionBox().getX() - cp.getX()), (int)(p.getCollisionBox().getY() - cp.getY()),
+                (int)p.getCollisionBox().getWidth() * scale, (int)p.getCollisionBox().getHeight() * scale);
         }
     }
 
@@ -48,9 +53,9 @@ public class DebugRenderer {
                            tileSize.getWidth() * scale, tileSize.getHeight() * scale);
             }
         }
-        if (state instanceof PlayState pState) {
+        if (state instanceof PlayState playState) {
             if (gm.getTileRect().x != -1) {
-                Player player = pState.getPlayer();
+                Player player = playState.getPlayer();
                 g.setColor(player.isWalkable() ? Color.BLUE : Color.RED);
                 g.setStroke(new BasicStroke(3));
                 g.drawRect(gm.getTileRect().x - (int) cp.getX(), gm.getTileRect().y - (int) cp.getY(), tileSize.getWidth() * scale, tileSize.getHeight() * scale);
