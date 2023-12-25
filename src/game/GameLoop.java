@@ -4,8 +4,8 @@ public class GameLoop implements Runnable {
     public static int fpsCount = 0;
     public static int upsCount = 0;
     public static long loopCount = 0;
-    public static double fps = 60.0;
-    public static double ups = 120.0;
+    public static double fps = 120.0;
+    public static double ups = 60.0;
     private boolean running;
     private double targetUpsFrame = 1000000000.0 / ups;
     private double targetFpsFrame = 1000000000.0 / fps;
@@ -13,7 +13,7 @@ public class GameLoop implements Runnable {
 
     public GameLoop() {
         running = true;
-        game = new Game();
+        game = new Game(this);
     }
 
     private void render() {
@@ -54,6 +54,11 @@ public class GameLoop implements Runnable {
                 loopCnt = 0;
             }
         }
+        System.exit(0);
+    }
+
+    public void stop() {
+        running = false;
     }
 
     private void update() {
