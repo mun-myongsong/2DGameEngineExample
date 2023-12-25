@@ -4,6 +4,7 @@ import core.Position;
 import core.Size;
 import entity.Entity;
 import input.Keyboard;
+import map.GameMap;
 
 /*
  * NESS LEVEL UP MAP
@@ -126,8 +127,8 @@ public abstract class Creature extends Entity {
     protected int luck;
     // TODO protected List<Magic> psis;
 
-    public Creature(String name, Keyboard keyboard, Position position, Size size, String fileName, int tileWidth, int tileHeight) {
-        super(keyboard, position, size, fileName, tileWidth, tileHeight);
+    public Creature(GameMap gameMap, String name, Keyboard keyboard, Position position, Size size, String fileName, int tileWidth, int tileHeight) {
+        super(gameMap, keyboard, position, size, fileName, tileWidth, tileHeight);
         this.name = name;
         this.level = 1;
         determiningStatus();

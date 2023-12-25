@@ -48,13 +48,14 @@ public class Display extends JFrame {
 
     private void createFrame(Size windowSize) {
         setSize(windowSize.getWidth(), windowSize.getHeight());
+        setUndecorated(true);
         setResizable(false);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
     }
- 
+
     public Size getCanvasSize() {
-    	return new Size(canvas.getWidth(), canvas.getHeight());
+        return new Size(canvas.getWidth(), canvas.getHeight());
     }
 
 	public void render(State state) {

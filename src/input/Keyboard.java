@@ -49,5 +49,6 @@ public class Keyboard implements KeyListener {
         handleKeyPressTime(KeyEvent.VK_D);
         handleKeyPressTime(KeyEvent.VK_S);
         handleKeyPressTime(KeyEvent.VK_W);
+        handleKeyPressTime(KeyEvent.VK_ESCAPE);
     }
 }
