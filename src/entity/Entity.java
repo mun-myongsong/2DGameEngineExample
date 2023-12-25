@@ -20,7 +20,7 @@ public abstract class Entity {
     protected Size size;
     protected Vector2D vector;
     protected Keyboard keyboard;
-    protected Map<String, Animation> animations;
+    protected Map<Direction, Animation> animations;
     protected Animation currentAnimation;
     protected Direction direction;
     protected Rectangle collisionBox;
@@ -33,16 +33,16 @@ public abstract class Entity {
         vector = new Vector2D();
         SpriteSheet spriteSheet = new SpriteSheet(fileName, tileWidth, tileHeight);
         registerAnimations(spriteSheet);
-        currentAnimation = animations.get("down");
+        currentAnimation = animations.get(Direction.DOWN);
         direction = Direction.STOP;
         collisionBox = new Rectangle((int)position.getX(), (int)position.getY(), size.getWidth(), size.getHeight());
         walkSpeed = 3;
     }
 
-    private void changeAnimation(String key) {
+    private void changeAnimation(Direction direction) {
 		currentAnimation.start();
-        if (!currentAnimation.equals(animations.get(key))) {
-            currentAnimation = animations.get(key);
+        if (!currentAnimation.equals(animations.get(direction))) {
+            currentAnimation = animations.get(direction);
         }
     }
 
@@ -54,7 +54,7 @@ public abstract class Entity {
         return direction;
     }
 
-    public Map<String, Animation> getAnimations() {
+    public Map<Direction, Animation> getAnimations() {
         return animations;
     }
 
@@ -101,16 +101,16 @@ public abstract class Entity {
     private void handleAnimation() {
         switch (direction) {
         case UP:
-            changeAnimation("up");
+            changeAnimation(Direction.UP);
             break;
         case LEFT:
-            changeAnimation("left");
+            changeAnimation(Direction.LEFT);
             break;
         case DOWN:
-            changeAnimation("down");
+            changeAnimation(Direction.DOWN);
             break;
         case RIGHT:
-            changeAnimation("right");
+            changeAnimation(Direction.RIGHT);
             break;
         case STOP:
             currentAnimation.stop();

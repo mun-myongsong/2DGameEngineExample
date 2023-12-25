@@ -56,12 +56,13 @@ public class Player extends Creature {
     @Override
     protected void registerAnimations(SpriteSheet spriteSheet) {
         super.registerAnimations(spriteSheet);
-        animations.put("down" , new Animation(spriteSheet.getTextures(0,  4 ), (long) (0.3 * GameLoop.ups), true));
-        animations.put("right", new Animation(spriteSheet.getTextures(4,  8 ), (long) (0.3 * GameLoop.ups), true));
-        animations.put("left" , new Animation(spriteSheet.getTextures(8,  12), (long) (0.3 * GameLoop.ups), true));
-        animations.put("up"   , new Animation(spriteSheet.getTextures(12, 16), (long) (0.3 * GameLoop.ups), true));
+        animations.put(Direction.DOWN , new Animation(spriteSheet.getTextures(0,  4 ), (long) (0.3 * GameLoop.ups), true));
+        animations.put(Direction.RIGHT, new Animation(spriteSheet.getTextures(4,  8 ), (long) (0.3 * GameLoop.ups), true));
+        animations.put(Direction.LEFT , new Animation(spriteSheet.getTextures(8,  12), (long) (0.3 * GameLoop.ups), true));
+        animations.put(Direction.UP   , new Animation(spriteSheet.getTextures(12, 16), (long) (0.3 * GameLoop.ups), true));
 	}
 
+    @Override
     public void update(State state) {
         super.update(state);
         handleInput();
