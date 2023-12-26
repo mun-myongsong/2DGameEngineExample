@@ -27,7 +27,7 @@ public class PlayState extends State {
             "/character/cyber/judyscuba.png",
             32, 32);    //TODO キャラクタのみタイルサイズが32の為
         random = new Random();
-        generateEntity(10);
+        generateEntity(100);
         gameCamera.focusOn(player);
     }
 
@@ -39,7 +39,9 @@ public class PlayState extends State {
                     gameMap,
                     "Enemy" + i,
                     keyboard,
-                    new Position(random.nextInt(gameMap.getHeight()) * gameMap.getTileSize().getWidth() * gameMap.getScale(), random.nextInt(gameMap.getWidth()) * gameMap.getTileSize().getHeight() * gameMap.getScale()),
+                    new Position(
+                        random.nextInt(gameMap.getHeight() * gameMap.getTileSize().getWidth() * gameMap.getScale() - gameMap.getTileSize().getWidth()),
+                        random.nextInt(gameMap.getWidth() * gameMap.getTileSize().getHeight() * gameMap.getScale() - gameMap.getTileSize().getHeight())),
                     new Size(gameMap.getTileSize().getWidth(), gameMap.getTileSize().getHeight()),
                     "/character/cyber/davidmartinez.png",
                     32, 32    //TODO キャラクタのみタイルサイズが32の為
@@ -60,5 +62,6 @@ public class PlayState extends State {
     public void update() {
         super.update();
         player.update(this);
+        entities.forEach(entity -> entity.update(this));
     }
 }

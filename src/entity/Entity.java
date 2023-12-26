@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import controller.EnemyController;
+import controller.EntityController;
 import core.Position;
 import core.Size;
 import core.Vector2D;
@@ -31,6 +33,7 @@ public abstract class Entity {
     protected Direction direction;
     protected Rectangle collisionBox;
     protected double walkSpeed;
+    protected EntityController controller;
 
     public Entity(GameMap gameMap, Keyboard keyboard, Position position, Size size, String fileName, int tileWidth, int tileHeight) {
         this.gameMap = gameMap;
@@ -47,7 +50,7 @@ public abstract class Entity {
         walkSpeed = 3;
     }
 
-    private void changeAnimation(Direction direction) {
+    protected void changeAnimation(Direction direction) {
 		currentAnimation.start();
         if (!currentAnimation.equals(animations.get(direction))) {
             currentAnimation = animations.get(direction);
@@ -72,6 +75,10 @@ public abstract class Entity {
 
     public Rectangle getCollisionBox() {
         return collisionBox;
+    }
+
+    public EntityController getController() {
+        return controller;
     }
 
     public Keyboard getKeyboard() {
@@ -128,7 +135,7 @@ public abstract class Entity {
         currentAnimation.update();
     }
 
-    private void handleCollision(State state) {
+    protected void handleCollision(State state) {
         GameMap map = state.getGameMap();
         collisionBox.x += vector.getX();
         collisionBox.y += vector.getY();
@@ -156,7 +163,19 @@ public abstract class Entity {
         position.add(vector);
     }
 
-    private boolean isWalkable(State state) {
+    private boolean isCollision(Entity entity) {
+        Rectangle rect = new Rectangle(
+                collisionBox.x + (int)vector.getX(), collisionBox.y + (int)vector.getY(),
+                collisionBox.width, collisionBox.height);
+        display.DebugRenderer.messageMap.put("ENTITYPOSITION", String.format("Enemy: %s", entity.getPosition()));
+        return entity.getCollisionBox().intersects(rect);
+    }
+
+    public boolean isWalkable() {
+        return (vector.getX() != 0 || vector.getY() != 0);
+    }
+
+    protected boolean isWalkable(State state) {
         if (state instanceof PlayState playState) {
             List<Entity> filterList = playState.getEntities().stream()
                 .filter(entity -> Math.abs(getX() - entity.getX()) < DISTANCE_TO_ENTITY && Math.abs(getY() - entity.getY()) < DISTANCE_TO_ENTITY)
@@ -164,21 +183,12 @@ public abstract class Entity {
             for (int i = 0; i < filterList.size(); i++) {
                 if (isCollision(filterList.get(i))) {
                     return false;
+                } else {
+                    display.DebugRenderer.messageMap.remove("ENTITYPOSITION");
                 }
             }
         }
         return true;
-    }
-
-    private boolean isCollision(Entity entity) {
-        Rectangle rect = new Rectangle(
-                collisionBox.x + (int)vector.getX(), collisionBox.y + (int)vector.getY(),
-                collisionBox.width, collisionBox.height);
-        return entity.getCollisionBox().intersects(rect);
-    }
-
-    public boolean isWalkable() {
-        return (vector.getX() != 0 || vector.getY() != 0);
     }
 
     protected void registerAnimations(SpriteSheet spriteSheet) {

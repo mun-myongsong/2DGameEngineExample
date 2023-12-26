@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import core.Position;
 import core.Size;
@@ -31,6 +32,7 @@ public class GameMap {
     private int scale;
     private Rectangle tileRect;
     private Rectangle tileRect2;
+    private Random random;
 
     public GameMap() {
         mapData = new ArrayList<>();
@@ -38,6 +40,7 @@ public class GameMap {
         scale = 4;
         tileRect = new Rectangle(-1, -1, 0, 0);
         tileRect2 = new Rectangle(-1, -1, 0, 0);
+        random = new Random();
         buildGameMap();
         loadTileSet();
     }
@@ -68,6 +71,12 @@ public class GameMap {
         } catch (Exception e) {
             throw new IllegalStateException("ゲームマップの構築に失敗しました。", e);
         }
+    }
+
+    public Position findRandomPosition() {
+        return new Position(
+                random.nextInt(stageSize.getWidth() * (tileSize.getWidth() * scale)),
+                random.nextInt(stageSize.getHeight() * (tileSize.getHeight() * scale)));
     }
 
     public int getHeight() {
