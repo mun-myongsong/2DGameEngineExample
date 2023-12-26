@@ -10,7 +10,6 @@ import java.util.stream.Collectors;
 import core.Position;
 import core.Size;
 import core.Vector2D;
-import display.DebugRenderer;
 import entity.creature.Direction;
 import gfx.Animation;
 import gfx.SpriteSheet;
@@ -172,8 +171,10 @@ public abstract class Entity {
     }
 
     private boolean isCollision(Entity entity) {
-        DebugRenderer.messageMap.put("COL", String.format("me: %s, you: %s", collisionBox, entity.getCollisionBox()));
-        return entity.getCollisionBox().intersects(collisionBox);
+        Rectangle rect = new Rectangle(
+                collisionBox.x + (int)vector.getX(), collisionBox.y + (int)vector.getY(),
+                collisionBox.width, collisionBox.height);
+        return entity.getCollisionBox().intersects(rect);
     }
 
     public boolean isWalkable() {

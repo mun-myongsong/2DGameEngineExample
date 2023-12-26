@@ -90,26 +90,26 @@ public class GameMap {
         case UP:
             pos.p1.setX(rect.x);
             pos.p1.setY(rect.y + vec.getY());
-            pos.p2.setX(rect.x + rect.width * scale);
+            pos.p2.setX(rect.x + rect.width);
             pos.p2.setY(rect.y + vec.getY());
             break;
         case DOWN:
             pos.p1.setX(rect.x);
-            pos.p1.setY(rect.y + rect.height * scale + vec.getY());
-            pos.p2.setX(rect.x + rect.width * scale);
-            pos.p2.setY(rect.y + rect.height * scale + vec.getY());
+            pos.p1.setY(rect.y + rect.height + vec.getY());
+            pos.p2.setX(rect.x + rect.width);
+            pos.p2.setY(rect.y + rect.height + vec.getY());
             break;
         case LEFT:
             pos.p1.setX(rect.x + vec.getX());
             pos.p1.setY(rect.y);
             pos.p2.setX(rect.x + vec.getX());
-            pos.p2.setY(rect.y + rect.height * scale);
+            pos.p2.setY(rect.y + rect.height);
             break;
         case RIGHT:
-            pos.p1.setX(rect.x + rect.width * scale + vec.getX());
+            pos.p1.setX(rect.x + rect.width + vec.getX());
             pos.p1.setY(rect.y);
-            pos.p2.setX(rect.x + rect.width * scale + vec.getX());
-            pos.p2.setY(rect.y + rect.height * scale);
+            pos.p2.setX(rect.x + rect.width + vec.getX());
+            pos.p2.setY(rect.y + rect.height);
             break;
         }
         return pos;

@@ -34,11 +34,11 @@ public class DebugRenderer {
             playState.getEntities().stream().forEach(entity -> {
                 g.drawRect(
                     (int)(entity.getCollisionBox().getX() - cp.getX()), (int)(entity.getCollisionBox().getY() - cp.getY()),
-                    (int)entity.getCollisionBox().getWidth() * scale, (int)entity.getCollisionBox().getHeight() * scale);
+                    (int)entity.getCollisionBox().getWidth(), (int)entity.getCollisionBox().getHeight());
             });
             g.drawRect(
                 (int)(p.getCollisionBox().getX() - cp.getX()), (int)(p.getCollisionBox().getY() - cp.getY()),
-                (int)p.getCollisionBox().getWidth() * scale, (int)p.getCollisionBox().getHeight() * scale);
+                (int)p.getCollisionBox().getWidth(), (int)p.getCollisionBox().getHeight());
         }
     }
 

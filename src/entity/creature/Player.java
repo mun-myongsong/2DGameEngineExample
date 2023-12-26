@@ -18,7 +18,7 @@ import state.State;
 public class Player extends Creature {
     public Player(GameMap gameMap, String name, Keyboard keyboard, Position position, Size size, String fileName, int tileWidth, int tileHeight) {
         super(gameMap, name, keyboard, position, size, fileName, tileWidth, tileHeight);
-        collisionBox = new Rectangle((int)position.getX() + 25, (int)position.getY() + 25, 4, 8);
+        collisionBox = new Rectangle((int)position.getX() + 25, (int)position.getY() + 25, 4 * gameMap.getScale(), 8 * gameMap.getScale());
     }
 
     @Override
