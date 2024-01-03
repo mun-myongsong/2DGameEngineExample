@@ -9,6 +9,7 @@ import java.util.Map;
 
 import core.Position;
 import core.Size;
+import entity.creature.Enemy;
 import entity.creature.Player;
 import game.GameLoop;
 import map.GameMap;
@@ -35,6 +36,14 @@ public class DebugRenderer {
                 g.drawRect(
                     (int)(entity.getCollisionBox().getX() - cp.getX()), (int)(entity.getCollisionBox().getY() - cp.getY()),
                     (int)entity.getCollisionBox().getWidth(), (int)entity.getCollisionBox().getHeight());
+                if (entity instanceof Enemy enemy) {
+                    g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 30));
+                    g.setColor(Color.GRAY);
+                    g.drawString(enemy.getCurrentState(), (int)(entity.getX() - cp.getX() + 2), (int)(entity.getY() - 8 - cp.getY()));
+                    g.setColor(Color.WHITE);
+                    g.drawString(enemy.getCurrentState(), (int)(entity.getX() - cp.getX()), (int)(entity.getY() - 10 - cp.getY()));
+                    g.setColor(Color.RED);
+                }
             });
             g.drawRect(
                 (int)(p.getCollisionBox().getX() - cp.getX()), (int)(p.getCollisionBox().getY() - cp.getY()),

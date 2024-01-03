@@ -32,7 +32,6 @@ public class Wander extends AIState {
         }
         if (arrived(entity)) {
             controller.stop();
-            target = null;
         }
         if (target != null) {
             controller.moveToTarget(target, entity.getPosition());

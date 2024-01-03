@@ -29,6 +29,10 @@ public class Enemy extends Creature {
     protected void determiningStatus() {
     }
 
+    public String getCurrentState() {
+        return aiManager.getCurrentAIState().getClass().getSimpleName();
+    }
+
     @Override
     protected void handleCollision(State state) {
         GameMap map = state.getGameMap();

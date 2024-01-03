@@ -27,7 +27,7 @@ public class PlayState extends State {
             "/character/cyber/judyscuba.png",
             32, 32);    //TODO キャラクタのみタイルサイズが32の為
         random = new Random();
-        generateEntity(100);
+        generateEntity(10);
         gameCamera.focusOn(player);
     }
 
