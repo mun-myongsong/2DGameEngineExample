@@ -2,6 +2,7 @@ package state;
 
 import core.Position;
 import core.Size;
+import entity.Entity;
 import entity.creature.Player;
 import game.Game;
 import ui.HorizontalContainer;
@@ -45,5 +46,6 @@ public class PlayState extends State {
     public void update() {
         super.update();
         player.update(this);
+        entities.forEach(entity -> entity.update(this));
     }
 }

@@ -18,7 +18,7 @@ import state.State;
 public class Player extends Creature {
     public Player(GameMap gameMap, String name, Keyboard keyboard, Position position, Size size, String fileName, int tileWidth, int tileHeight) {
         super(gameMap, name, keyboard, position, size, fileName, tileWidth, tileHeight);
-        collisionBox = new Rectangle((int)position.getX() + 25, (int)position.getY() + 25, 4, 8);
+        collisionBox = new Rectangle((int)position.getX() + 25, (int)position.getY() + 25, 4 * gameMap.getScale(), 8 * gameMap.getScale());
     }
 
     @Override
@@ -38,18 +38,24 @@ public class Player extends Creature {
     }
 
     private void handleInput() {
-        direction = Direction.STOP;
-        if (keyboard.isPressedKey(KeyEvent.VK_W)) {
+        if (keyboard.isPressedKey(KeyEvent.VK_W, KeyEvent.VK_A)) {
+            direction = Direction.LEFT_UP;
+        } else if (keyboard.isPressedKey(KeyEvent.VK_W, KeyEvent.VK_D)) {
+            direction = Direction.RIGHT_UP;
+        } else if (keyboard.isPressedKey(KeyEvent.VK_S, KeyEvent.VK_A)) {
+            direction = Direction.LEFT_DOWN;
+        } else if (keyboard.isPressedKey(KeyEvent.VK_S, KeyEvent.VK_D)) {
+            direction = Direction.RIGHT_DOWN;
+        } else if (keyboard.isPressedKey(KeyEvent.VK_W)) {
             direction = Direction.UP;
-        }
-        if (keyboard.isPressedKey(KeyEvent.VK_A)) {
+        } else if (keyboard.isPressedKey(KeyEvent.VK_A)) {
             direction = Direction.LEFT;
-        }
-        if (keyboard.isPressedKey(KeyEvent.VK_S)) {
+        } else if (keyboard.isPressedKey(KeyEvent.VK_S)) {
             direction = Direction.DOWN;
-        }
-        if (keyboard.isPressedKey(KeyEvent.VK_D)) {
+        } else if (keyboard.isPressedKey(KeyEvent.VK_D)) {
             direction = Direction.RIGHT;
+        } else {
+            direction = Direction.STOP;
         }
     }
 

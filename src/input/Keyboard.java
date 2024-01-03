@@ -44,6 +44,15 @@ public class Keyboard implements KeyListener {
         return keyPressedTime[keyCode] > 0;
     }
 
+    public boolean isPressedKey(int... keyCodes) {
+        for (int keyCode : keyCodes) {
+            if (keyPressedTime[keyCode] == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public void update() {
         handleKeyPressTime(KeyEvent.VK_A);
         handleKeyPressTime(KeyEvent.VK_D);

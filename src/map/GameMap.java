@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import core.Position;
 import core.Size;
@@ -31,6 +32,7 @@ public class GameMap {
     private int scale;
     private Rectangle tileRect;
     private Rectangle tileRect2;
+    private Random random;
 
     public GameMap() {
         mapData = new ArrayList<>();
@@ -38,6 +40,7 @@ public class GameMap {
         scale = 4;
         tileRect = new Rectangle(-1, -1, 0, 0);
         tileRect2 = new Rectangle(-1, -1, 0, 0);
+        random = new Random();
         buildGameMap();
         loadTileSet();
     }
@@ -70,6 +73,12 @@ public class GameMap {
         }
     }
 
+    public Position findRandomPosition() {
+        return new Position(
+            random.nextInt(stageSize.getWidth() * (tileSize.getWidth() * scale)),
+            random.nextInt(stageSize.getHeight() * (tileSize.getHeight() * scale)));
+    }
+
     public int getHeight() {
         return stageSize.getHeight();
     }
@@ -88,28 +97,32 @@ public class GameMap {
         Points pos = new Points(-1);
         switch (entity.getDirection()) {
         case UP:
+        case LEFT_UP:
+        case RIGHT_UP:
             pos.p1.setX(rect.x);
             pos.p1.setY(rect.y + vec.getY());
-            pos.p2.setX(rect.x + rect.width * scale);
+            pos.p2.setX(rect.x + rect.width);
             pos.p2.setY(rect.y + vec.getY());
             break;
         case DOWN:
+        case LEFT_DOWN:
+        case RIGHT_DOWN:
             pos.p1.setX(rect.x);
-            pos.p1.setY(rect.y + rect.height * scale + vec.getY());
-            pos.p2.setX(rect.x + rect.width * scale);
-            pos.p2.setY(rect.y + rect.height * scale + vec.getY());
+            pos.p1.setY(rect.y + rect.height + vec.getY());
+            pos.p2.setX(rect.x + rect.width);
+            pos.p2.setY(rect.y + rect.height + vec.getY());
             break;
         case LEFT:
             pos.p1.setX(rect.x + vec.getX());
             pos.p1.setY(rect.y);
             pos.p2.setX(rect.x + vec.getX());
-            pos.p2.setY(rect.y + rect.height * scale);
+            pos.p2.setY(rect.y + rect.height);
             break;
         case RIGHT:
-            pos.p1.setX(rect.x + rect.width * scale + vec.getX());
+            pos.p1.setX(rect.x + rect.width + vec.getX());
             pos.p1.setY(rect.y);
-            pos.p2.setX(rect.x + rect.width * scale + vec.getX());
-            pos.p2.setY(rect.y + rect.height * scale);
+            pos.p2.setX(rect.x + rect.width + vec.getX());
+            pos.p2.setY(rect.y + rect.height);
             break;
         }
         return pos;
