@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 import core.Size;
 import display.Display;
 import input.Keyboard;
+import input.Mouse;
 import state.PlayState;
 import state.State;
 
@@ -12,13 +13,15 @@ public class Game {
     private GameLoop gameLoop;
     private Display display;
     private Keyboard keyboard;
+    private Mouse mouse;
     private State state;
 
     public Game(GameLoop gameLoop) {
         this.gameLoop = gameLoop;
         keyboard = new Keyboard();
-        display = new Display(keyboard, "Web Diver", new Size(1920, 1080));
-        state = new PlayState(this);
+        mouse = new Mouse();
+        display = new Display(keyboard, mouse, "2D Game Engine Example", new Size(1920, 1080));
+        state = new PlayState(display.getCanvasSize(), this);
     }
 
     public Display getDisplay() {
@@ -29,13 +32,15 @@ public class Game {
         return keyboard;
     }
 
+    public Mouse getMouse() {
+        return mouse;
+    }
+
     public void render() {
         display.render(state);
     }
 
     private void stop() {
-        display.setVisible(false);
-        display.dispose();
         gameLoop.stop();
     }
 

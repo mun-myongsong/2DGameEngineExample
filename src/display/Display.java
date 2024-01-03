@@ -12,17 +12,20 @@ import javax.swing.JFrame;
 
 import core.Size;
 import input.Keyboard;
+import input.Mouse;
 import state.State;
 
 public class Display extends JFrame {
     private Canvas canvas;
     private Keyboard keyboard;
+    private Mouse mouse;
     private Renderer renderer;
     private DebugRenderer debugRenderer;
 
-    public Display(Keyboard keyboard, String title, Size windowSize) {
+    public Display(Keyboard keyboard, Mouse mouse, String title, Size windowSize) {
         super(title);
         this.keyboard = keyboard;
+        this.mouse = mouse;
         renderer = new Renderer();
         debugRenderer = new DebugRenderer();
         createFrame(windowSize);
@@ -33,6 +36,8 @@ public class Display extends JFrame {
         canvas.createBufferStrategy(2);
         addKeyListener(this.keyboard);
         canvas.addKeyListener(this.keyboard);
+        canvas.addMouseListener(this.mouse);
+        canvas.addMouseMotionListener(this.mouse);
         canvas.setFocusable(true);
     }
 

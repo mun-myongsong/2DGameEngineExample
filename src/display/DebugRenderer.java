@@ -21,7 +21,7 @@ public class DebugRenderer {
     public void renderDebug(Graphics2D g, State state) {
         renderMapDataCollisionBox(g, state);
         renderDebugCollisionBox(g, state);
-        renderDebugGameInfo(g, state);
+        // renderDebugGameInfo(g, state);
     }
 
     private void renderDebugCollisionBox(Graphics2D g, State state) {
@@ -73,7 +73,7 @@ public class DebugRenderer {
         messageMap.put("FPS", String.format("FPS: %d", GameLoop.fpsCount));
         messageMap.put("UPS", String.format("UPS: %d", GameLoop.upsCount));
         messageMap.put("LOOP", String.format("1S : %d", GameLoop.loopCount));
-        g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 30));
+        g.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 30));
         if (state instanceof PlayState pState) {
             Player p = pState.getPlayer();
             GameMap gm = state.getGameMap();

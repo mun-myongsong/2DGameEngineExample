@@ -15,6 +15,7 @@ public class Renderer {
     public void render(Graphics2D g, State state) {
         renderGameMap(g, state);
         renderGameObjects(g, state);
+        renderUI(g, state);
     }
 
     private void renderGameMap(Graphics2D g, State state) {
@@ -64,5 +65,14 @@ public class Renderer {
                 gameMap.getTileSize().getHeight() * gameMap.getScale(),
                 null);
         }
+    }
+
+    private void renderUI(Graphics2D g, State state) {
+        state.getUiContainers().forEach(uiContainer -> g.drawImage(
+            uiContainer.getSprite(),
+            (int)uiContainer.getRelativePosition().getX(),
+            (int)uiContainer.getRelativePosition().getY(),
+            null
+        ));
     }
 }
