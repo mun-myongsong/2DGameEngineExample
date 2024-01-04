@@ -68,11 +68,19 @@ public class Renderer {
     }
 
     private void renderUI(Graphics2D g, State state) {
-        state.getUiContainers().forEach(uiContainer -> g.drawImage(
-            uiContainer.getSprite(),
-            (int)uiContainer.getRelativePosition().getX(),
-            (int)uiContainer.getRelativePosition().getY(),
-            null
-        ));
+        state.getUiContainers().forEach(uiContainer ->
+            g.drawImage(
+                uiContainer.getSprite(),
+                (int)uiContainer.getRelativePosition().getX(),
+                (int)uiContainer.getRelativePosition().getY(),
+                null));
+        if (Display.debug) {
+            state.getUiDebugContainers().forEach(uiContainer ->
+                g.drawImage(
+                    uiContainer.getSprite(),
+                    (int)uiContainer.getRelativePosition().getX(),
+                    (int)uiContainer.getRelativePosition().getY(),
+                    null));
+        }
     }
 }

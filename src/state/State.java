@@ -7,6 +7,7 @@ import java.util.Random;
 
 import core.Position;
 import core.Size;
+import display.Display;
 import display.GameCamera;
 import entity.Entity;
 import entity.creature.Enemy;
@@ -28,6 +29,7 @@ public abstract class State {
     protected Random random;
     protected List<Entity> entities;
     protected List<UIContainer> uiContainers;
+    protected List<UIContainer> uiDebugContainers;
     protected UIDebugInfo uiDebugInfo;
 
     public State(Game game) {
@@ -39,6 +41,7 @@ public abstract class State {
         random = new Random();
         entities = new ArrayList<>();
         uiContainers = new ArrayList<>();
+        uiDebugContainers = new ArrayList<>();
     }
 
     protected void generateEntity(int num) {
@@ -79,6 +82,10 @@ public abstract class State {
         return uiContainers;
     }
 
+    public List<UIContainer> getUiDebugContainers() {
+        return uiDebugContainers;
+    }
+
     public void setActiveConsumer(MouseConsumer activeConsumer) {
         this.activeConsumer = activeConsumer;
     }
@@ -87,6 +94,9 @@ public abstract class State {
         keyboard.update();
         entities.forEach(entity -> entity.update(this));
         uiContainers.forEach(uiContainer -> uiContainer.update(this));
+        if (Display.debug) {
+            uiDebugContainers.forEach(uiContainer -> uiContainer.update(this));
+        }
         gameCamera.update(this);
         mouse.cleanUpInputEvents();
     }

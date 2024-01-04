@@ -39,7 +39,7 @@ public class PlayState extends State {
         container.addUIComponent(new UIButton("DEBUG", () -> Display.debug = !Display.debug));
         uiContainers.add(container);
         UIDebugInfo uiDebugInfo = new UIDebugInfo(windowSize);
-        uiContainers.add(uiDebugInfo);
+        uiDebugContainers.add(uiDebugInfo);
     }
 
     public Player getPlayer() {
