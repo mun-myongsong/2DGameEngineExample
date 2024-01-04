@@ -66,4 +66,8 @@ public class UIText extends UIComponent {
         createFont();
         calculateSize();
     }
+
+    public void setText(String text) {
+        this.text = text;
+    }
 }

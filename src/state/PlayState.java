@@ -1,14 +1,19 @@
 package state;
 
+import java.awt.Color;
+
 import core.Position;
 import core.Size;
+import display.Display;
 import entity.Entity;
 import entity.creature.Player;
 import game.Game;
-import ui.HorizontalContainer;
-import ui.UIText;
+import game.GameLoop;
+import ui.Alignment;
 import ui.UIContainer;
 import ui.VerticalContainer;
+import ui.clickable.UIButton;
+import ui.debug.UIDebugInfo;
 
 public class PlayState extends State {
     private Player player;
@@ -30,12 +35,11 @@ public class PlayState extends State {
 
     private void initializeUI(Size windowSize) {
         UIContainer container = new VerticalContainer(windowSize);
-        container.setAlignment(new ui.Alignment(ui.Alignment.Position.CENTER, ui.Alignment.Position.CENTER));
-        container.setPadding(new ui.Space(5));
-        container.addUIComponent(new ui.clickable.UIButton("Menu", () -> System.out.println("Menu")));
-        container.addUIComponent(new ui.clickable.UIButton("Options", () -> System.out.println("Options")));
-        container.addUIComponent(new ui.clickable.UIButton("Exit", () -> System.exit(0)));
+        container.setAlignment(Alignment.Position.END, Alignment.Position.START);
+        container.addUIComponent(new UIButton("DEBUG", () -> Display.debug = !Display.debug));
         uiContainers.add(container);
+        UIDebugInfo uiDebugInfo = new UIDebugInfo(windowSize);
+        uiContainers.add(uiDebugInfo);
     }
 
     public Player getPlayer() {

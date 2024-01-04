@@ -16,6 +16,7 @@ import input.Mouse;
 import state.State;
 
 public class Display extends JFrame {
+    public static boolean debug;
     private Canvas canvas;
     private Keyboard keyboard;
     private Mouse mouse;
@@ -72,7 +73,9 @@ public class Display extends JFrame {
         Graphics2D g = (Graphics2D) bs.getDrawGraphics();
         g.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         renderer.render(g, state);
-        debugRenderer.renderDebug(g, state);
+        if (debug) {
+            debugRenderer.renderDebug(g, state);
+        }
         g.dispose();
         bs.show();
     }

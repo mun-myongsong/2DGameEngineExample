@@ -16,6 +16,7 @@ import input.Mouse;
 import input.MouseConsumer;
 import map.GameMap;
 import ui.UIContainer;
+import ui.debug.UIDebugInfo;
 
 public abstract class State {
     protected Game game;
@@ -27,6 +28,7 @@ public abstract class State {
     protected Random random;
     protected List<Entity> entities;
     protected List<UIContainer> uiContainers;
+    protected UIDebugInfo uiDebugInfo;
 
     public State(Game game) {
         this.game = game;

@@ -35,6 +35,12 @@ public abstract class UIContainer extends UIComponent {
         children.add(uiComponent);
     }
 
+    public void addUIComponentAll(UIComponent... uiComponents) {
+        for (UIComponent uiComponent : uiComponents) {
+            children.add(uiComponent);
+        }
+    }
+
     protected abstract Size calculateChildrenSize();
 
     protected abstract void calculateChildrenPosition();
@@ -70,6 +76,10 @@ public abstract class UIContainer extends UIComponent {
         }
     }
 
+    protected void clearChildren() {
+        children.clear();
+    }
+
     public Color getBackgroundColor() {
         return backgroundColor;
     }
@@ -92,8 +102,8 @@ public abstract class UIContainer extends UIComponent {
         return image;
     }
 
-    public void setAlignment(Alignment alignment) {
-        this.alignment = alignment;
+    public void setAlignment(Alignment.Position vertical, Alignment.Position horizontal) {
+        alignment = new Alignment(vertical, horizontal);
     }
 
     public void setBackgroundColor(Color backgroundColor) {

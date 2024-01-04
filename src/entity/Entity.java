@@ -183,7 +183,6 @@ public abstract class Entity {
         Rectangle rect = new Rectangle(
                 collisionBox.x + (int)vector.getX(), collisionBox.y + (int)vector.getY(),
                 collisionBox.width, collisionBox.height);
-        display.DebugRenderer.messageMap.put("ENTITYPOSITION", String.format("Enemy: %s", entity.getPosition()));
         return entity.getCollisionBox().intersects(rect);
     }
 
