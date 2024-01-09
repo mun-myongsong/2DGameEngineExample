@@ -40,7 +40,7 @@ public class Game {
         display.render(state);
     }
 
-    private void stop() {
+    public void stop() {
         gameLoop.stop();
     }
 

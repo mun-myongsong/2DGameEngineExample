@@ -37,6 +37,7 @@ public class PlayState extends State {
         UIContainer container = new VerticalContainer(windowSize);
         container.setAlignment(Alignment.Position.END, Alignment.Position.START);
         container.addUIComponent(new UIButton("DEBUG", () -> Display.debug = !Display.debug));
+        container.addUIComponent(new UIButton("EXIT", () -> game.stop()));
         uiContainers.add(container);
         UIDebugInfo uiDebugInfo = new UIDebugInfo(windowSize);
         uiDebugContainers.add(uiDebugInfo);
