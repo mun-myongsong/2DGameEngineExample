@@ -19,7 +19,7 @@ public class PlayState extends State {
     private Player player;
 
     public PlayState(Size windowSize, Game game) {
-        super(game);
+        super(windowSize, game);
         player = new Player(
             gameMap,
             "Tester",
@@ -30,14 +30,14 @@ public class PlayState extends State {
             32, 32);    //TODO キャラクタのみタイルサイズが32の為
         generateEntity(10);
         gameCamera.focusOn(player);
-        initializeUI(windowSize);
     }
 
-    private void initializeUI(Size windowSize) {
+    @Override
+    public void initializeUI(Size windowSize) {
         UIContainer container = new VerticalContainer(windowSize);
         container.setAlignment(Alignment.Position.END, Alignment.Position.START);
-        container.addUIComponent(new UIButton("DEBUG", () -> Display.debug = !Display.debug));
-        container.addUIComponent(new UIButton("EXIT", () -> game.stop()));
+        container.addUIComponent(new UIButton("デバッグ", () -> Display.debug = !Display.debug));
+        container.addUIComponent(new UIButton("終了", () -> game.stop()));
         uiContainers.add(container);
         UIDebugInfo uiDebugInfo = new UIDebugInfo(windowSize);
         uiDebugContainers.add(uiDebugInfo);

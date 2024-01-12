@@ -32,7 +32,7 @@ public abstract class State {
     protected List<UIContainer> uiDebugContainers;
     protected UIDebugInfo uiDebugInfo;
 
-    public State(Game game) {
+    public State(Size windowSize, Game game) {
         this.game = game;
         keyboard = game.getKeyboard();
         mouse = game.getMouse();
@@ -42,6 +42,7 @@ public abstract class State {
         entities = new ArrayList<>();
         uiContainers = new ArrayList<>();
         uiDebugContainers = new ArrayList<>();
+        initializeUI(windowSize);
     }
 
     protected void generateEntity(int num) {
@@ -85,6 +86,8 @@ public abstract class State {
     public List<UIContainer> getUiDebugContainers() {
         return uiDebugContainers;
     }
+
+    public abstract void initializeUI(Size windowSize);
 
     public void setActiveConsumer(MouseConsumer activeConsumer) {
         this.activeConsumer = activeConsumer;

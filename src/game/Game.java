@@ -7,6 +7,7 @@ import display.Display;
 import input.Keyboard;
 import input.Mouse;
 import state.PlayState;
+import state.StartState;
 import state.State;
 
 public class Game {
@@ -21,7 +22,8 @@ public class Game {
         keyboard = new Keyboard();
         mouse = new Mouse();
         display = new Display(keyboard, mouse, "2D Game Engine Example", new Size(1920, 1080));
-        state = new PlayState(display.getCanvasSize(), this);
+        // state = new PlayState(display.getCanvasSize(), this);
+        state = new StartState(display.getCanvasSize(), this);
     }
 
     public Display getDisplay() {
@@ -38,6 +40,10 @@ public class Game {
 
     public void render() {
         display.render(state);
+    }
+
+    public void setState(State state) {
+        this.state = state;
     }
 
     public void stop() {
