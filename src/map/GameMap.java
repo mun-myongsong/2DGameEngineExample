@@ -97,16 +97,12 @@ public class GameMap {
         Points pos = new Points(-1);
         switch (entity.getDirection()) {
         case UP:
-        case LEFT_UP:
-        case RIGHT_UP:
             pos.p1.setX(rect.x);
             pos.p1.setY(rect.y + vec.getY());
             pos.p2.setX(rect.x + rect.width);
             pos.p2.setY(rect.y + vec.getY());
             break;
         case DOWN:
-        case LEFT_DOWN:
-        case RIGHT_DOWN:
             pos.p1.setX(rect.x);
             pos.p1.setY(rect.y + rect.height + vec.getY());
             pos.p2.setX(rect.x + rect.width);

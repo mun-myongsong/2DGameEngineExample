@@ -119,16 +119,12 @@ public abstract class Entity {
             changeAnimation(Direction.UP);
             break;
         case LEFT:
-        case LEFT_UP:
-        case LEFT_DOWN:
             changeAnimation(Direction.LEFT);
             break;
         case DOWN:
             changeAnimation(Direction.DOWN);
             break;
         case RIGHT:
-        case RIGHT_UP:
-        case RIGHT_DOWN:
             changeAnimation(Direction.RIGHT);
             break;
         case STOP:
@@ -150,23 +146,11 @@ public abstract class Entity {
         case LEFT:
             vector.setVector(-walkSpeed, 0);
             break;
-        case LEFT_UP:
-            vector.setVector(-walkSpeed, -walkSpeed);
-            break;
-        case LEFT_DOWN:
-            vector.setVector(-walkSpeed, walkSpeed);
-            break;
         case DOWN:
             vector.setVector(0, walkSpeed);
             break;
         case RIGHT:
             vector.setVector(walkSpeed, 0);
-            break;
-        case RIGHT_UP:
-            vector.setVector(walkSpeed, -walkSpeed);
-            break;
-        case RIGHT_DOWN:
-            vector.setVector(walkSpeed, walkSpeed);
             break;
         case STOP:
         default:

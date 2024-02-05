@@ -38,15 +38,7 @@ public class Player extends Creature {
     }
 
     private void handleInput() {
-        if (keyboard.isPressedKey(KeyEvent.VK_W, KeyEvent.VK_A)) {
-            direction = Direction.LEFT_UP;
-        } else if (keyboard.isPressedKey(KeyEvent.VK_W, KeyEvent.VK_D)) {
-            direction = Direction.RIGHT_UP;
-        } else if (keyboard.isPressedKey(KeyEvent.VK_S, KeyEvent.VK_A)) {
-            direction = Direction.LEFT_DOWN;
-        } else if (keyboard.isPressedKey(KeyEvent.VK_S, KeyEvent.VK_D)) {
-            direction = Direction.RIGHT_DOWN;
-        } else if (keyboard.isPressedKey(KeyEvent.VK_W)) {
+        if (keyboard.isPressedKey(KeyEvent.VK_W)) {
             direction = Direction.UP;
         } else if (keyboard.isPressedKey(KeyEvent.VK_A)) {
             direction = Direction.LEFT;
